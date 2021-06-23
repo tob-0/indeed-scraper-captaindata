@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer')
 const fs = require('fs')
+const utils = require('./utils')
 
 function urlFormatter(q,l,advn,vjk) {
     return advn===null ? encodeURI(`https://fr.indeed.com/jobs?q=${q}&l=${l}&vjk=${vjk}`) : encodeURI(`https://fr.indeed.com/jobs?q=${q}&l=${l}&advn=${advn}&vjk=${vjk}`)
@@ -13,13 +14,6 @@ function exportToJSON(data,path) {
     return true
 }
 
-function importJSON(path) {
-    try {
-        return JSON.parse(fs.readFileSync(path,'utf8'))
-    } catch (err) {
-        console.error(err)
-    }
-}
 
 function compareData(d0,d1) {
     let concatData = d0.concat(d1)
@@ -47,7 +41,7 @@ function compareData(d0,d1) {
     const jobsData = await page.$$eval('div.jobsearch-SerpJobCard', e =>e.map(x=>[x.getAttribute('data-empn'),x.getAttribute('data-jk')]))
     let jobsLinks = []
     jobsData.forEach(jobData=>jobsLinks.push(urlFormatter('Python','Paris%20(75)',jobData[0],jobData[1])))
-    let storedData = importJSON('bot-links.json')
+    let storedData = utils.importJSON('bot-links.json')
     let jobsLinksUniq = compareData(storedData, jobsLinks)
     exportToJSON(jobsLinksUniq,'bot-links.json')
     console.log(jobsLinksUniq)
