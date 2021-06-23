@@ -64,5 +64,12 @@ module.exports = {
                 )
             )
         )
+    },
+    exportToCSV: (data,path) => {
+        let nullValueReplacer = (k,v)=>v===null?'N/A':v
+        let header = Object.keys(data[0])
+        let csv = [header.join(','),...data.map(row=>header.map(field=>JSON.stringify(row[field],nullValueReplacer)).join(','))].join('\r\n') //https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
+        fs.writeFile(path,csv,'utf8',e=>e?e:'')
+        return true
     }
 }
