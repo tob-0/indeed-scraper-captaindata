@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 
+
 (async () =>{
     const browser = await puppeteer.launch({headless: false,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
     const page = await browser.newPage()
@@ -19,11 +20,9 @@ const puppeteer = require('puppeteer');
     */
     try {
         await page.waitForSelector('div.jobsearch-SerpJobCard')
-        const vjkData = await page.$$eval('div.jobsearch-SerpJobCard', e =>e.map(x=>x.getAttribute('data-jk')))
-        const empnData = await page.$$eval('div.jobsearch-SerpJobCard', e=>e.map(x=>x.getAttribute('data-empn')))
+        const vjkDataAdvn = await page.$$eval('div.jobsearch-SerpJobCard', e =>e.map(x=>[x.getAttribute('data-jk'), x.getAttribute('data-empn')]))
     } catch (error) {
         console.log(error)
     }
-    
-    // await browser.close()
+    await browser.close()
 })()
