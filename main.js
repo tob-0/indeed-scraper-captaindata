@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 
+function urlFormatter(q,l,advn,vjk) {`https://fr.indeed.com/jobs?q=${q}&l=${l}&advn=${advn}&vjk=${vjk}`}
 
 (async () =>{
     const browser = await puppeteer.launch({headless: false,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
