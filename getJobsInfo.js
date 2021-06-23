@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 const utils = require('./utils')
 
-let storedData = utils.importJSON('bot-links.json')
+let storedLinks = utils.importJSON('bot-links.json')
 
 ;(async (links) =>{
     const browser = await puppeteer.launch({headless: true,slowMo:0})
@@ -23,4 +23,8 @@ let storedData = utils.importJSON('bot-links.json')
 
     }
     await browser.close()
-})(storedData)
+    let storedData = utils.importJSON('bot-jobs.json')
+    let uniqData = utils.compareData(storedData, jobObjects)
+    utils.exportToJSON(uniqData, 'bot-jobs.json')
+    
+})(storedLinks)
