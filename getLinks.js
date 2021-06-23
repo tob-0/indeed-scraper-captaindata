@@ -5,10 +5,11 @@ function urlFormatter(q,l,advn,vjk) {
     return advn===null ? encodeURI(`https://fr.indeed.com/jobs?q=${q}&l=${l}&vjk=${vjk}`) : encodeURI(`https://fr.indeed.com/jobs?q=${q}&l=${l}&advn=${advn}&vjk=${vjk}`)
 }
 
-(async () =>{
+(async (q,l) =>{
     const browser = await puppeteer.launch({headless: true,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
     const page = await browser.newPage()
-    await page.goto('https://fr.indeed.com/jobs?q=Python&l=Paris%20(75)', {
+    q = encodeURI(q),l=encodeURI(l)
+    await page.goto(`https://fr.indeed.com/jobs?q=${q}&l=${l})`, {
         waitUntil: 'networkidle2',
     }) // Go to indeed's website
 
@@ -27,8 +28,8 @@ function urlFormatter(q,l,advn,vjk) {
     await browser.close()
 
     let jobsLinks = []
-    jobsData.forEach(jobData=>jobsLinks.push(urlFormatter('Python','Paris%20(75)',jobData[0],jobData[1])))
+    jobsData.forEach(jobData=>jobsLinks.push(urlFormatter(q,l,jobData[0],jobData[1])))
     let storedData = utils.importJSON('bot-links.json')
     let jobsLinksUniq = utils.compareData(storedData, jobsLinks)
     utils.exportToJSON(jobsLinksUniq,'bot-links.json')
-})()
+})('Python','Paris (75)')
