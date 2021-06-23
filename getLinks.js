@@ -6,7 +6,7 @@ function urlFormatter(q,l,advn,vjk) {
 }
 
 (async () =>{
-    const browser = await puppeteer.launch({headless: false,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
+    const browser = await puppeteer.launch({headless: true,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
     const page = await browser.newPage()
     await page.goto('https://fr.indeed.com/jobs?q=Python&l=Paris%20(75)', {
         waitUntil: 'networkidle2',
