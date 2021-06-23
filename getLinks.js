@@ -6,7 +6,7 @@ function urlFormatter(q,l,advn,vjk) {
 }
 
 (async () =>{
-    const browser = await puppeteer.launch({headless: true,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
+    const browser = await puppeteer.launch({headless: false,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
     const page = await browser.newPage()
     await page.goto('https://fr.indeed.com/jobs?q=Python&l=Paris%20(75)', {
         waitUntil: 'networkidle2',
@@ -24,11 +24,11 @@ function urlFormatter(q,l,advn,vjk) {
     */
     await page.waitForSelector('div.jobsearch-SerpJobCard')
     const jobsData = await page.$$eval('div.jobsearch-SerpJobCard', e =>e.map(x=>[x.getAttribute('data-empn'),x.getAttribute('data-jk')]))
+    await browser.close()
+
     let jobsLinks = []
     jobsData.forEach(jobData=>jobsLinks.push(urlFormatter('Python','Paris%20(75)',jobData[0],jobData[1])))
     let storedData = utils.importJSON('bot-links.json')
     let jobsLinksUniq = utils.compareData(storedData, jobsLinks)
     utils.exportToJSON(jobsLinksUniq,'bot-links.json')
-    console.log(jobsLinksUniq)
-    await browser.close()
 })()
