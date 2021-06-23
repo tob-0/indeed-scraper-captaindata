@@ -1,9 +1,8 @@
 const puppeteer = require('puppeteer')
 
-run = async _ => {
+(async () =>{
     const browser = await puppeteer.launch({headless: false,slowMo:250}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
     const page = await browser.newPage()
-
     await page.goto('https://fr.indeed.com/', {
         waitUntil: 'networkidle2',
     }) // Go to indeed's website
@@ -15,6 +14,4 @@ run = async _ => {
     await page.click('button.icl-WhatWhere-button') // Submit the search
 
     await browser.close()
-}
-
-run()
+})()
