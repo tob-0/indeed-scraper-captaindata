@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
 
 (async () =>{
     const browser = await puppeteer.launch({headless: false,slowMo:250}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
