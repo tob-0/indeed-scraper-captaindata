@@ -18,7 +18,12 @@ let storedLinks = utils.importJSON('bot-links.json')
         console.log(jobDesc)
         jobObjects.push({
             title: jobTitle,
-            desc: jobDesc
+            desc: [
+                jobDesc,
+                utils.convertHTML(jobDesc,true),
+                utils.convertHTML(jobDesc,false)
+            ],
+            link: link
         })
 
     }
@@ -26,5 +31,5 @@ let storedLinks = utils.importJSON('bot-links.json')
     let storedData = utils.importJSON('bot-jobs.json')
     let uniqData = utils.compareData(storedData, jobObjects)
     utils.exportToJSON(uniqData, 'bot-jobs.json')
-    
+
 })(storedLinks)
