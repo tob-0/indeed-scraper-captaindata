@@ -85,7 +85,7 @@ module.exports = {
             try {
                 return JSON.parse(fs.readFileSync(path,'utf8'))
             } catch (err) {
-                console.log('An error occured while importing JSON: '+err.mesage)
+                console.log('An error occured while importing JSON: '+err)
             }
     },
     /**
@@ -102,7 +102,7 @@ module.exports = {
         })
         return true
     } catch (err) {
-        console.log('An error occured while exporting to CSV: '+ err.message)
+        console.log('An error occured while exporting to JSON: '+ err.message)
         return false
     }
     },
@@ -158,6 +158,20 @@ module.exports = {
             return true
         } catch (err) {
             console.log('An error occured while exporting to CSV: '+ err.message)
+            return false
+        }
+    },
+    /**
+     * Creates required JSON files
+     * @returns boolean
+     */
+    createJSONFiles: ()=>{
+        try {
+            fs.writeFileSync('bot-links.json','[]','utf8', e=>e?e:'')
+            fs.writeFileSync('bot-jobs.json',JSON.stringify({count:0,items:[]}),'utf8', e=>e?e:'')
+            return true   
+        } catch (err) {
+            console.log('An error occured while creating JSON files: '+ err.message)
             return false
         }
     }
