@@ -51,8 +51,13 @@ module.exports = {
     }
     },  
     compareData:(d0,d1)=>{
-        let concatData = d0.concat(d1)
-        return concatData.filter((value,index,self)=>self.indexOf(value) === index)
+        try {
+            let concatData = d0.concat(d1)
+            return concatData.filter((value,index,self)=>self.indexOf(value) === index)
+        } catch (err) {
+            console.log('An arror occured while comparing data: '+err.message)
+            return false
+        }
     },
     convertHTML: (html, markdown)=>{
         return clearTags(
