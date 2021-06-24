@@ -1,4 +1,5 @@
 node_modules/
 bot-*.json
+*.csv
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .npm
