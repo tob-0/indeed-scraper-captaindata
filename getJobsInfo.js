@@ -35,6 +35,6 @@ let storedLinks = utils.importJSON('bot-links.json')
     utils.exportToJSON(jobs, 'bot-jobs.json')
 
     
-    if (CSVExport) utils.exportToCSV(uniqData.items,'bot-jobs.csv') // Ne fonctionne pas, je suis pas sur de pourquoi mais j'ai pas trop le temps de debug
+    if (CSVExport) utils.exportToCSV(jobs.items,'bot-jobs.csv')
 
 })(storedLinks,true)
