@@ -24,25 +24,24 @@ module.exports = {
             await page.waitForSelector('.jobsearch-JobInfoHeader-title')
             const jobTitle = await page.$eval('.jobsearch-JobInfoHeader-title', e => e.innerHTML)
             const jobDesc = await page.$eval('#jobDescriptionText', e => e.innerHTML)
+            let data = await fetch(linkAPI).then(resp=>resp.json()).then(data=>data).catch(err=>console.log(err.message))
+
             let jobObject = {
                 title: jobTitle,
+                companyName: data.sicm.cmN,
+                jobLocation: data.jobLocation,
+                contractTypes: data.jtsT,
+                salaryRange: data.ssT,
+                salaryMin: data.sEx ? data.sEx.sRg.split(' - ')[0]:'Unknown',
+                salaryMax: data.sEx ? data.sEx.sRg.split(' - ')[1]:'Unknown',
                 desc_html: jobDesc,
                 desc_md: utils.convertHTML(jobDesc,true),
                 desc_text: utils.convertHTML(jobDesc,false),
                 link: link[0]
             }
-            ;(async (jobObj,link)=>{
-                let data = await fetch(link).then(resp=>resp.json()).then(data=>data).catch(err=>console.log(err.message))
-                jobObj.jobLocation = data.jobLocation
-                jobObj.contractTypes = data.jtsT
-                jobObj.salaryRange = data.ssT
-                jobObj.salaryMin = data.sEx.sRg.split(' - ')[0]
-                jobObj.salaryMax = data.sEx.sRg.split(' - ')[1]
-                jobObj.age = data.relativeJobAge
-                
-                jobs.items.push(jobObj)
+            
+            jobs.items.push(jobObject)
 
-            })(jobObject, linkAPI)
     
         }
         await browser.close()
