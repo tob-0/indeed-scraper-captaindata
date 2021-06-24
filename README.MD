@@ -11,3 +11,4 @@ Il arrive que le bot déclenche un Captcha, mais je sais pas trop comment évite
 ## TODO
 
 - Recuperation des info sur les autres pages, avec une limites de X liens a recuperer
+- Implementer des tests, c'est pas 100% fiable, notamment a cause du Captcha
