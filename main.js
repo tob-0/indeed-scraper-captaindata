@@ -12,7 +12,6 @@ else {
 }
 
 async function run(args){
-    console.log(args)
     if (args.includes('-h') === true && args.length > 2){
         console.log('Usage: node main.js <what> <where>')
         return 0
