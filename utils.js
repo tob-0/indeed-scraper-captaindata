@@ -35,15 +35,20 @@ module.exports = {
             try {
                 return JSON.parse(fs.readFileSync(path,'utf8'))
             } catch (err) {
-                console.error(err)
+                console.log('An error occured while importing JSON: '+err.mesage)
             }
     },
     exportToJSON: (data,path) => {
+        try {
         let jsonifiedData = JSON.stringify(data)
         fs.writeFile(path,jsonifiedData,'utf8',e=> {
             if (e) return e
         })
         return true
+    } catch (err) {
+        console.log('An error occured while exporting to CSV: '+ err.message)
+        return false
+    }
     },  
     compareData:(d0,d1)=>{
         let concatData = d0.concat(d1)
@@ -66,10 +71,15 @@ module.exports = {
         )
     },
     exportToCSV: (data,path) => {
-        let nullValueReplacer = (k,v)=>v===null?'N/A':v
-        let header = Object.keys(data[0])
-        let csv = [header.join(','),...data.map(row=>header.map(field=>JSON.stringify(row[field],nullValueReplacer)).join(','))].join('\r\n') //https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
-        fs.writeFile(path,csv,'utf8',e=>e?e:'')
-        return true
+        try {
+            let nullValueReplacer = (k,v)=>v===null?'N/A':v
+            let header = Object.keys(data[0])
+            let csv = [header.join(','),...data.map(row=>header.map(field=>JSON.stringify(row[field],nullValueReplacer)).join(','))].join('\r\n') //https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
+            fs.writeFile(path,csv,'utf8',e=>e?e:'')
+            return true
+        } catch (err) {
+            console.log('An error occured while exporting to CSV: '+ err.message)
+            return false
+        }
     }
 }
