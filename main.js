@@ -1,6 +1,6 @@
-const cards = require('./getLinks')
-const jobs = require('./getJobsInfo')
-const utils = require('./utils')
+const cards = require('./lib/getLinks')
+const jobs = require('./lib/getJobsInfo')
+const utils = require('./lib/utils')
 const { existsSync } = require('fs')
 const { exit, argv } = require('process')
 
