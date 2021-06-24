@@ -3,6 +3,12 @@ const utils = require('./utils')
 
 
 module.exports = {
+    /**
+     * Get the details of the job offers pointed to by 'links'.
+     * 
+     * @param {string[]} links An array of links, pointing to job offers
+     * @param {boolean} CSVExport Set to 'true' if you want to export to csv
+     */
     getInfo: async (links,CSVExport) =>{
         CSVExport
         const browser = await puppeteer.launch({headless: true,slowMo:0})
