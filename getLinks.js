@@ -6,6 +6,12 @@ function urlFormatter(q,l,advn,vjk) {
 }
 
 module.exports = {
+    /**
+     * Get links of the different job offers listed on Indeed for a specific search, and put them into 'bot-links.json'.
+     * 
+     * @param {string} q What you are looking for on Indeed
+     * @param {string} l Where you are looking for it
+     */
     getLinks: async (q,l) =>{
         const browser = await puppeteer.launch({headless: true,slowMo:1}) // For debugging, allows to see what's happening + Slow motion (delay by 250ms)
         const page = await browser.newPage()
