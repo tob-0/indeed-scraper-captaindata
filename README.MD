@@ -3,6 +3,7 @@
 ## Usage
 
 ```shell
+$ npm i
 $ node main.js [-h] <what> <where>
 ```
 Le script récupère les liens depuis les jobards, et les ajoute dans le fichier "bot-link Json'.
