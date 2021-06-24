@@ -6,4 +6,4 @@ cards.getLinks('Python','Paris (75)')
 
 let storedLinks = utils.importJSON('bot-links.json')
 
-jobs.getInfo(storedLinks)
+jobs.getInfo(storedLinks,true)
